@@ -1,7 +1,9 @@
-import questions from "/big_talk.json" assert { type: "JSON" };
-
-console.log(questions);
-// const questionJSON = questions;
+fetch("/data")
+  .then((response) => response.json())
+  .then((data) => {
+    console.log("hello world");
+  })
+  .catch((error) => console.error("Error:", error));
 
 // const amountOfQuestions = questionJSON.length;
 

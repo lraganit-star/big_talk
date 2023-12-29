@@ -5,6 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const bigTalkJSON = require("../questions/big_talk.json");
 const fallInLoveJSON = require("../questions/fall_in_love.json");
+const friendsJSON = require("../questions/friends.json");
 
 app.use(express.json());
 app.use(cors());
@@ -20,6 +21,11 @@ app.get("/big_talk", (req, res) => {
 app.get("/fall_in_love", (req, res) => {
   res.json(fallInLoveJSON);
   console.log("fall in love data read");
+});
+
+app.get("/friends", (req, res) => {
+  res.json(friendsJSON);
+  console.log("friends data read");
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

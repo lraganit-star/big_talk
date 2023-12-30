@@ -3,35 +3,36 @@
 const appContainer = document.getElementById("app");
 const modalContainer = document.getElementById("modal");
 const questionContainer = document.getElementById("questions");
-let endpoint = "friends";
+let endpoint = "big_talk";
 
-// function loadModal() {
-//   //   questionContainer.style.display = "none";
-//   modalContainer.style.display = "show";
-//   document
-//     .getElementById("big-talk")
-//     .addEventListener("click", () => selectGroup("big_talk"));
-//   document
-//     .getElementById("fall-in-love")
-//     .addEventListener("click", () => selectGroup("fall_in_love"));
-//   document
-//     .getElementById("friends")
-//     .addEventListener("click", () => selectGroup("friends"));
-// }
+function loadModal() {
+  questionContainer.style.display = "none";
+  document
+    .getElementById("big-talk")
+    .addEventListener("click", () => selectGroup("big_talk"));
+  document
+    .getElementById("fall-in-love")
+    .addEventListener("click", () => selectGroup("fall_in_love"));
+  document
+    .getElementById("friends")
+    .addEventListener("click", () => selectGroup("friends"));
+}
 
-// function selectGroup(groupName) {
-//   console.log("Group selected:", groupName);
-//   endpoint = groupName;
+function selectGroup(groupName) {
+  console.log("Group selected:", groupName);
+  endpoint = groupName;
 
-//   if (modalContainer) {
-//     questionContainer.style.display = "show";
-//     // modalContainer.style.display = "none";
-//   }
-// }
+  if (modalContainer) {
+    questionContainer.style.display = "block";
+    modalContainer.style.display = "none";
+  }
+}
 
-// loadModal();
+loadModal();
 
 if (endpoint == "big_talk") {
+  document.getElementsByClassName("question-group")[0].innerHTML =
+    "Big Talk Questions";
   fetch("/big_talk")
     .then((response) => response.json())
     .then((data) => {
@@ -43,6 +44,7 @@ if (endpoint == "big_talk") {
       document
         .getElementById("question-number")
         .addEventListener("click", () => {
+          console.log("big_talk");
           questionNumber++;
           visibleQuestions[0].innerHTML = data[questionNumber];
           const v1 = document.getElementById("progress-bar").value;
@@ -51,6 +53,8 @@ if (endpoint == "big_talk") {
     })
     .catch((error) => console.error("Error:", error));
 } else if (endpoint == "fall_in_love") {
+  document.getElementsByClassName("question-group")[0].innerHTML =
+    "36 Questions to Fall in Love";
   fetch("/fall_in_love")
     .then((response) => response.json())
     .then((data) => {
@@ -62,6 +66,7 @@ if (endpoint == "big_talk") {
       document
         .getElementById("question-number")
         .addEventListener("click", () => {
+          console.log("fall_in_love");
           questionNumber++;
           visibleQuestions[0].innerHTML = data[questionNumber];
           const v1 = document.getElementById("progress-bar").value;
@@ -70,7 +75,8 @@ if (endpoint == "big_talk") {
     })
     .catch((error) => console.error("Error:", error));
 } else if (endpoint == "friends") {
-  // has 145 questions
+  document.getElementsByClassName("question-group")[0].innerHTML =
+    "Questions to ask your friends";
   fetch("/friends")
     .then((response) => response.json())
     .then((data) => {
@@ -82,6 +88,7 @@ if (endpoint == "big_talk") {
       document
         .getElementById("question-number")
         .addEventListener("click", () => {
+          console.log("friends");
           questionNumber++;
           visibleQuestions[0].innerHTML = data[questionNumber];
           const v1 = document.getElementById("progress-bar").value;

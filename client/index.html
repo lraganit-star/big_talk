@@ -4,13 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questions</title>
-    <script src="main.js"></script>
 </head>
 <body>
-    <div class="visible-question"></div>
-    <button class="question-number">Next Question</button>
 
-    <progress value="0" id=progress-bar></progress>
-
+    <div id="app">
+        <div id="modal">
+            <div class="modal-content">
+                <div>Choose a Question Group</div>
+                <button id="big-talk">Big Talk</button>
+                <button id="fall-in-love">Fall in Love</button>
+                <button id="friends">Friends</button>
+            </div>
+        </div>
+        <div id="questions">
+            <div class="visible-question"></div>
+            <button id="question-number">Next Question</button>
+            <progress value="0" id=progress-bar></progress>
+        </div>
+    </div>
+    <script src="main.js"></script>
 </body>
-</html>
+</html> 

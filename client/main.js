@@ -1,57 +1,92 @@
-// need to make this less copy pasta and have to make it to where HTML isn't hard coded for progress bar
+// need to make this less copy pasta
 // need to also create home page where user can choose which question set to use
-// if (endpoint == "big_talk") {
-//   fetch("/big_talk")
-//     .then((response) => response.json())
-//     .then((data) => {
-//       let questionNumber = -1;
-//       document.getElementById("progress-bar").max = data.length - 1;
-//       addEventListener("click", () => {
-//         const visibleQuestions =
-//           document.getElementsByClassName("visible-question");
-//         questionNumber++;
-//         visibleQuestions[0].innerHTML = data[questionNumber];
+const appContainer = document.getElementById("app");
+const modalContainer = document.getElementById("modal");
+const questionContainer = document.getElementById("questions");
+let endpoint = "friends";
 
-//         let v1 = document.getElementById("progress-bar").value;
-//         document.getElementById("progress-bar").value = v1 + 1;
-//       });
-//     })
-//     .catch((error) => console.error("Error:", error));
+// function loadModal() {
+//   //   questionContainer.style.display = "none";
+//   modalContainer.style.display = "show";
+//   document
+//     .getElementById("big-talk")
+//     .addEventListener("click", () => selectGroup("big_talk"));
+//   document
+//     .getElementById("fall-in-love")
+//     .addEventListener("click", () => selectGroup("fall_in_love"));
+//   document
+//     .getElementById("friends")
+//     .addEventListener("click", () => selectGroup("friends"));
 // }
-// if (endpoint == "fall_in_love") {
-// has 36 questions
-fetch("/fall_in_love")
-  .then((response) => response.json())
-  .then((data) => {
-    let questionNumber = 0;
-    document.getElementById("progress-bar").max = data.length - 1;
-    const visibleQuestions =
-      document.getElementsByClassName("visible-question");
-    visibleQuestions[0].innerHTML = data[questionNumber];
-    addEventListener("click", () => {
-      questionNumber++;
+
+// function selectGroup(groupName) {
+//   console.log("Group selected:", groupName);
+//   endpoint = groupName;
+
+//   if (modalContainer) {
+//     questionContainer.style.display = "show";
+//     // modalContainer.style.display = "none";
+//   }
+// }
+
+// loadModal();
+
+if (endpoint == "big_talk") {
+  fetch("/big_talk")
+    .then((response) => response.json())
+    .then((data) => {
+      let questionNumber = 0;
+      document.getElementById("progress-bar").max = data.length - 1;
+      const visibleQuestions =
+        document.getElementsByClassName("visible-question");
       visibleQuestions[0].innerHTML = data[questionNumber];
-      const v1 = document.getElementById("progress-bar").value;
-      document.getElementById("progress-bar").value = v1 + 1;
-    });
-  })
-  .catch((error) => console.error("Error:", error));
-// } else if (endpoint == "friends") {
-//   // has 145 questions
-//   fetch("/friends")
-//     .then((response) => response.json())
-//     .then((data) => {
-//       let questionNumber = -1;
-//       document.getElementById("progress-bar").max = data.length - 1;
-//       addEventListener("click", () => {
-//         const visibleQuestions =
-//           document.getElementsByClassName("visible-question");
-//         questionNumber++;
-//         visibleQuestions[0].innerHTML = data[questionNumber];
-
-//         let v1 = document.getElementById("progress-bar").value;
-//         document.getElementById("progress-bar").value = v1 + 1;
-//       });
-//     })
-//     .catch((error) => console.error("Error:", error));
-// }
+      document
+        .getElementById("question-number")
+        .addEventListener("click", () => {
+          questionNumber++;
+          visibleQuestions[0].innerHTML = data[questionNumber];
+          const v1 = document.getElementById("progress-bar").value;
+          document.getElementById("progress-bar").value = v1 + 1;
+        });
+    })
+    .catch((error) => console.error("Error:", error));
+} else if (endpoint == "fall_in_love") {
+  fetch("/fall_in_love")
+    .then((response) => response.json())
+    .then((data) => {
+      let questionNumber = 0;
+      document.getElementById("progress-bar").max = data.length - 1;
+      const visibleQuestions =
+        document.getElementsByClassName("visible-question");
+      visibleQuestions[0].innerHTML = data[questionNumber];
+      document
+        .getElementById("question-number")
+        .addEventListener("click", () => {
+          questionNumber++;
+          visibleQuestions[0].innerHTML = data[questionNumber];
+          const v1 = document.getElementById("progress-bar").value;
+          document.getElementById("progress-bar").value = v1 + 1;
+        });
+    })
+    .catch((error) => console.error("Error:", error));
+} else if (endpoint == "friends") {
+  // has 145 questions
+  fetch("/friends")
+    .then((response) => response.json())
+    .then((data) => {
+      let questionNumber = 0;
+      document.getElementById("progress-bar").max = data.length - 1;
+      const visibleQuestions =
+        document.getElementsByClassName("visible-question");
+      visibleQuestions[0].innerHTML = data[questionNumber];
+      document
+        .getElementById("question-number")
+        .addEventListener("click", () => {
+          questionNumber++;
+          visibleQuestions[0].innerHTML = data[questionNumber];
+          const v1 = document.getElementById("progress-bar").value;
+          document.getElementById("progress-bar").value = v1 + 1;
+        });
+    })
+    .catch((error) => console.error("Error:", error));
+}

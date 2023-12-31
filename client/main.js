@@ -21,7 +21,6 @@ async function loadModal() {
 async function selectGroup(groupName) {
   console.log("Group selected:", groupName);
   endpoint = groupName;
-  console.log("Endpoint", endpoint);
 
   if (modalContainer) {
     questionContainer.style.display = "block";
@@ -35,17 +34,16 @@ async function askQuestion(endpoint) {
   if (endpoint == "big_talk") {
     document.getElementsByClassName("question-group")[0].innerHTML =
       "Big Talk Questions";
+
     fetch("/big_talk")
       .then((response) => response.json())
       .then((data) => {
         let questionNumber = 0;
         document.getElementById("progress-bar").max = data.length - 1;
-
         visibleQuestions.innerHTML = data[questionNumber];
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
-            console.log("big_talk");
             questionNumber++;
             visibleQuestions.innerHTML = data[questionNumber];
             const v1 = document.getElementById("progress-bar").value;
@@ -56,6 +54,7 @@ async function askQuestion(endpoint) {
   } else if (endpoint == "fall_in_love") {
     document.getElementsByClassName("question-group")[0].innerHTML =
       "36 Questions to Fall in Love";
+
     fetch("/fall_in_love")
       .then((response) => response.json())
       .then((data) => {
@@ -65,7 +64,6 @@ async function askQuestion(endpoint) {
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
-            console.log("fall_in_love");
             questionNumber++;
             visibleQuestions.innerHTML = data[questionNumber];
             const v1 = document.getElementById("progress-bar").value;
@@ -76,6 +74,7 @@ async function askQuestion(endpoint) {
   } else if (endpoint == "friends") {
     document.getElementsByClassName("question-group")[0].innerHTML =
       "Questions to ask your friends";
+
     fetch("/friends")
       .then((response) => response.json())
       .then((data) => {
@@ -85,7 +84,6 @@ async function askQuestion(endpoint) {
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
-            console.log("friends");
             questionNumber++;
             visibleQuestions[0].innerHTML = data[questionNumber];
             const v1 = document.getElementById("progress-bar").value;

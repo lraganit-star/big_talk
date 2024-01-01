@@ -1,6 +1,5 @@
 // need to make this less copy pasta
 // dark mode
-// back button
 // button for whether user has answered question (and saved with local storage)
 // question list
 

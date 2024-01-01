@@ -8,19 +8,35 @@ const appContainer = document.getElementById("app");
 const modalContainer = document.getElementById("modal");
 const questionContainer = document.getElementById("questions");
 const visibleQuestions = document.getElementById("visible-question");
+const progressBar = document.getElementById("progress-bar");
 
 let questionNumber = { big_talk: 0, fall_in_love: 0, friends: 0 };
 
 function loadModal() {
   questionContainer.style.display = "none";
+
+  const questionNumbers = JSON.parse(localStorage.getItem("questionNumbers"));
+  if (questionNumbers) {
+    questionNumber = questionNumbers;
+    console.log("local storage", questionNumber);
+  }
+
+  console.log("fall in love value", questionNumber["friends"]);
+
+  document.getElementById("big-talk-progress").value =
+    questionNumber["big_talk"];
+  document.getElementById("friends-progress").value = questionNumber["friends"];
+  document.getElementById("fall-in-love-progress").value =
+    questionNumber["fall_in_love"];
+
   document
-    .getElementById("big-talk")
+    .getElementById("big-talk-container")
     .addEventListener("click", () => selectGroup("big_talk"));
   document
-    .getElementById("fall-in-love")
+    .getElementById("fall-in-love-container")
     .addEventListener("click", () => selectGroup("fall_in_love"));
   document
-    .getElementById("friends")
+    .getElementById("friends-container")
     .addEventListener("click", () => selectGroup("friends"));
 }
 
@@ -37,11 +53,6 @@ function selectGroup(groupName) {
 }
 
 function askQuestion(endpoint) {
-  const questionNumbers = JSON.parse(localStorage.getItem("questionNumbers"));
-  if (questionNumbers) {
-    console.log("local storage", questionNumbers);
-    questionNumber = questionNumbers;
-  }
   if (endpoint == "big_talk") {
     document.getElementsByClassName("question-group")[0].innerHTML =
       "Big Talk Questions";
@@ -49,17 +60,15 @@ function askQuestion(endpoint) {
     fetch("/big_talk")
       .then((response) => response.json())
       .then((data) => {
-        document.getElementById("progress-bar").max = data.length - 1;
+        progressBar.max = data.length - 1;
         visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
-        document.getElementById("progress-bar").value =
-          questionNumber["big_talk"];
+        progressBar.value = questionNumber["big_talk"];
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
             questionNumber["big_talk"]++;
             visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
-            document.getElementById("progress-bar").value =
-              questionNumber["big_talk"];
+            progressBar.value = questionNumber["big_talk"];
             localStorage.setItem(
               "questionNumbers",
               JSON.stringify(questionNumber)
@@ -75,17 +84,15 @@ function askQuestion(endpoint) {
     fetch("/fall_in_love")
       .then((response) => response.json())
       .then((data) => {
-        document.getElementById("progress-bar").max = data.length - 1;
+        progressBar.max = data.length - 1;
         visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
-        document.getElementById("progress-bar").value =
-          questionNumber["fall_in_love"];
+        progressBar.value = questionNumber["fall_in_love"];
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
             questionNumber["fall_in_love"]++;
             visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
-            document.getElementById("progress-bar").value =
-              questionNumber["fall_in_love"];
+            progressBar.value = questionNumber["fall_in_love"];
             localStorage.setItem(
               "questionNumbers",
               JSON.stringify(questionNumber)
@@ -101,17 +108,15 @@ function askQuestion(endpoint) {
     fetch("/friends")
       .then((response) => response.json())
       .then((data) => {
-        document.getElementById("progress-bar").max = data.length - 1;
+        progressBar.max = data.length - 1;
         visibleQuestions.innerHTML = data[questionNumber["friends"]];
-        document.getElementById("progress-bar").value =
-          questionNumber["big_talk"];
+        progressBar.value = questionNumber["friends"];
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
             questionNumber["friends"]++;
             visibleQuestions.innerHTML = data[questionNumber["friends"]];
-            document.getElementById("progress-bar").value =
-              questionNumber["big_talk"];
+            progressBar.value = questionNumber["friends"];
             localStorage.setItem(
               "questionNumbers",
               JSON.stringify(questionNumber)

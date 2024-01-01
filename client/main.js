@@ -1,5 +1,4 @@
 // need to make this less copy pasta
-// use localStorage to save question user is at
 // dark mode
 // progress bar on modals
 // button for whether user has answered question (and saved with local storage)

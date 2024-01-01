@@ -1,6 +1,6 @@
 // need to make this less copy pasta
 // dark mode
-// progress bar on modals
+// back button
 // button for whether user has answered question (and saved with local storage)
 // question list
 
@@ -64,7 +64,7 @@ function askQuestion(endpoint) {
         visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
         progressBar.value = questionNumber["big_talk"];
         document
-          .getElementById("question-number")
+          .getElementById("next-question")
           .addEventListener("click", () => {
             questionNumber["big_talk"]++;
             visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
@@ -74,7 +74,17 @@ function askQuestion(endpoint) {
               JSON.stringify(questionNumber)
             );
           });
-        console.log(questionNumber);
+        document
+          .getElementById("previous-question")
+          .addEventListener("click", () => {
+            questionNumber["big_talk"]--;
+            visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
+            progressBar.value = questionNumber["big_talk"];
+            localStorage.setItem(
+              "questionNumbers",
+              JSON.stringify(questionNumber)
+            );
+          });
       })
       .catch((error) => console.error("Error:", error));
   } else if (endpoint == "fall_in_love") {
@@ -88,7 +98,7 @@ function askQuestion(endpoint) {
         visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
         progressBar.value = questionNumber["fall_in_love"];
         document
-          .getElementById("question-number")
+          .getElementById("next-question")
           .addEventListener("click", () => {
             questionNumber["fall_in_love"]++;
             visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
@@ -98,6 +108,17 @@ function askQuestion(endpoint) {
               JSON.stringify(questionNumber)
             );
             console.log(questionNumber);
+          });
+        document
+          .getElementById("previous-question")
+          .addEventListener("click", () => {
+            questionNumber["fall_in_love"]--;
+            visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
+            progressBar.value = questionNumber["fall_in_love"];
+            localStorage.setItem(
+              "questionNumbers",
+              JSON.stringify(questionNumber)
+            );
           });
       })
       .catch((error) => console.error("Error:", error));
@@ -112,7 +133,7 @@ function askQuestion(endpoint) {
         visibleQuestions.innerHTML = data[questionNumber["friends"]];
         progressBar.value = questionNumber["friends"];
         document
-          .getElementById("question-number")
+          .getElementById("next-question")
           .addEventListener("click", () => {
             questionNumber["friends"]++;
             visibleQuestions.innerHTML = data[questionNumber["friends"]];
@@ -122,6 +143,17 @@ function askQuestion(endpoint) {
               JSON.stringify(questionNumber)
             );
             console.log(questionNumber);
+          });
+        document
+          .getElementById("previous-question")
+          .addEventListener("click", () => {
+            questionNumber["friends"]--;
+            visibleQuestions.innerHTML = data[questionNumber["friends"]];
+            progressBar.value = questionNumber["friends"];
+            localStorage.setItem(
+              "questionNumbers",
+              JSON.stringify(questionNumber)
+            );
           });
       })
       .catch((error) => console.error("Error:", error));

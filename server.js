@@ -3,13 +3,13 @@ const cors = require("cors");
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-const bigTalkJSON = require("../questions/big_talk.json");
-const fallInLoveJSON = require("../questions/fall_in_love.json");
-const friendsJSON = require("../questions/friends.json");
+const bigTalkJSON = require("./questions/big_talk.json");
+const fallInLoveJSON = require("./questions/fall_in_love.json");
+const friendsJSON = require("./questions/friends.json");
 
 app.use(express.json());
 app.use(cors());
-app.use(express.static("../client"));
+app.use(express.static("./client"));
 
 app.get("/", (req, res) => res.send("Hello World!"));
 

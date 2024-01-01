@@ -1,5 +1,11 @@
 // need to make this less copy pasta
-// need to also create home page where user can choose which question set to use
+// home button
+// use localStorage to save question user is at
+// dark mode
+// progress bar on modals
+// button for whether user has answered question (and saved with local storage)
+// question list
+
 const appContainer = document.getElementById("app");
 const modalContainer = document.getElementById("modal");
 const questionContainer = document.getElementById("questions");

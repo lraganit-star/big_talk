@@ -10,9 +10,11 @@ const modalContainer = document.getElementById("modal");
 const questionContainer = document.getElementById("questions");
 const visibleQuestions = document.getElementById("visible-question");
 
-let bigTalkNumber = 0;
-let fallInLoveNumber = 0;
-let friendsNumber = 0;
+let questionNumber = { big_talk: 0, fall_in_love: 0, friends: 0 };
+
+function setQuestionNumbers() {
+  localStorage.setItem("");
+}
 
 function loadModal() {
   questionContainer.style.display = "none";
@@ -48,12 +50,12 @@ function askQuestion(endpoint) {
       .then((response) => response.json())
       .then((data) => {
         document.getElementById("progress-bar").max = data.length - 1;
-        visibleQuestions.innerHTML = data[bigTalkNumber];
+        visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
-            bigTalkNumber++;
-            visibleQuestions.innerHTML = data[bigTalkNumber];
+            questionNumber["big_talk"]++;
+            visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
             const v1 = document.getElementById("progress-bar").value;
             document.getElementById("progress-bar").value = v1 + 1;
           });
@@ -67,12 +69,12 @@ function askQuestion(endpoint) {
       .then((response) => response.json())
       .then((data) => {
         document.getElementById("progress-bar").max = data.length - 1;
-        visibleQuestions.innerHTML = data[fallInLoveNumber];
+        visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
-            fallInLoveNumber++;
-            visibleQuestions.innerHTML = data[fallInLoveNumber];
+            questionNumber["fall_in_love"]++;
+            visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
             const v1 = document.getElementById("progress-bar").value;
             document.getElementById("progress-bar").value = v1 + 1;
           });
@@ -86,12 +88,12 @@ function askQuestion(endpoint) {
       .then((response) => response.json())
       .then((data) => {
         document.getElementById("progress-bar").max = data.length - 1;
-        visibleQuestions.innerHTML = data[friendsNumber];
+        visibleQuestions.innerHTML = data[questionNumber["friends"]];
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
-            friendsNumber++;
-            visibleQuestions.innerHTML = data[friendsNumber];
+            questionNumber["friends"]++;
+            visibleQuestions.innerHTML = data[questionNumber["friends"]];
             const v1 = document.getElementById("progress-bar").value;
             document.getElementById("progress-bar").value = v1 + 1;
           });

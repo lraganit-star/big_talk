@@ -1,5 +1,4 @@
 // need to make this less copy pasta
-// home button
 // use localStorage to save question user is at
 // dark mode
 // progress bar on modals
@@ -11,7 +10,11 @@ const modalContainer = document.getElementById("modal");
 const questionContainer = document.getElementById("questions");
 const visibleQuestions = document.getElementById("visible-question");
 
-async function loadModal() {
+let bigTalkNumber = 0;
+let fallInLoveNumber = 0;
+let friendsNumber = 0;
+
+function loadModal() {
   questionContainer.style.display = "none";
   document
     .getElementById("big-talk")
@@ -24,7 +27,7 @@ async function loadModal() {
     .addEventListener("click", () => selectGroup("friends"));
 }
 
-async function selectGroup(groupName) {
+function selectGroup(groupName) {
   console.log("Group selected:", groupName);
   endpoint = groupName;
 
@@ -36,7 +39,7 @@ async function selectGroup(groupName) {
   askQuestion(groupName);
 }
 
-async function askQuestion(endpoint) {
+function askQuestion(endpoint) {
   if (endpoint == "big_talk") {
     document.getElementsByClassName("question-group")[0].innerHTML =
       "Big Talk Questions";
@@ -44,14 +47,13 @@ async function askQuestion(endpoint) {
     fetch("/big_talk")
       .then((response) => response.json())
       .then((data) => {
-        let questionNumber = 0;
         document.getElementById("progress-bar").max = data.length - 1;
-        visibleQuestions.innerHTML = data[questionNumber];
+        visibleQuestions.innerHTML = data[bigTalkNumber];
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
-            questionNumber++;
-            visibleQuestions.innerHTML = data[questionNumber];
+            bigTalkNumber++;
+            visibleQuestions.innerHTML = data[bigTalkNumber];
             const v1 = document.getElementById("progress-bar").value;
             document.getElementById("progress-bar").value = v1 + 1;
           });
@@ -64,14 +66,13 @@ async function askQuestion(endpoint) {
     fetch("/fall_in_love")
       .then((response) => response.json())
       .then((data) => {
-        let questionNumber = 0;
         document.getElementById("progress-bar").max = data.length - 1;
-        visibleQuestions.innerHTML = data[questionNumber];
+        visibleQuestions.innerHTML = data[fallInLoveNumber];
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
-            questionNumber++;
-            visibleQuestions.innerHTML = data[questionNumber];
+            fallInLoveNumber++;
+            visibleQuestions.innerHTML = data[fallInLoveNumber];
             const v1 = document.getElementById("progress-bar").value;
             document.getElementById("progress-bar").value = v1 + 1;
           });
@@ -84,14 +85,13 @@ async function askQuestion(endpoint) {
     fetch("/friends")
       .then((response) => response.json())
       .then((data) => {
-        let questionNumber = 0;
         document.getElementById("progress-bar").max = data.length - 1;
-        visibleQuestions.innerHTML = data[questionNumber];
+        visibleQuestions.innerHTML = data[friendsNumber];
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
-            questionNumber++;
-            visibleQuestions[0].innerHTML = data[questionNumber];
+            friendsNumber++;
+            visibleQuestions.innerHTML = data[friendsNumber];
             const v1 = document.getElementById("progress-bar").value;
             document.getElementById("progress-bar").value = v1 + 1;
           });

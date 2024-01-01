@@ -12,10 +12,6 @@ const visibleQuestions = document.getElementById("visible-question");
 
 let questionNumber = { big_talk: 0, fall_in_love: 0, friends: 0 };
 
-function setQuestionNumbers() {
-  localStorage.setItem("");
-}
-
 function loadModal() {
   questionContainer.style.display = "none";
   document
@@ -42,6 +38,11 @@ function selectGroup(groupName) {
 }
 
 function askQuestion(endpoint) {
+  const questionNumbers = JSON.parse(localStorage.getItem("questionNumbers"));
+  if (questionNumbers) {
+    console.log("local storage", questionNumbers);
+    questionNumber = questionNumbers;
+  }
   if (endpoint == "big_talk") {
     document.getElementsByClassName("question-group")[0].innerHTML =
       "Big Talk Questions";
@@ -51,13 +52,18 @@ function askQuestion(endpoint) {
       .then((data) => {
         document.getElementById("progress-bar").max = data.length - 1;
         visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
+        document.getElementById("progress-bar").value =
+          questionNumber["big_talk"];
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
             questionNumber["big_talk"]++;
             visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
-            const v1 = document.getElementById("progress-bar").value;
-            document.getElementById("progress-bar").value = v1 + 1;
+
+            localStorage.setItem(
+              "questionNumbers",
+              JSON.stringify(questionNumber)
+            );
           });
       })
       .catch((error) => console.error("Error:", error));
@@ -70,13 +76,18 @@ function askQuestion(endpoint) {
       .then((data) => {
         document.getElementById("progress-bar").max = data.length - 1;
         visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
+        document.getElementById("progress-bar").value =
+          questionNumber["fall_in_love"];
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
             questionNumber["fall_in_love"]++;
             visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
-            const v1 = document.getElementById("progress-bar").value;
-            document.getElementById("progress-bar").value = v1 + 1;
+
+            localStorage.setItem(
+              "questionNumbers",
+              JSON.stringify(questionNumber)
+            );
           });
       })
       .catch((error) => console.error("Error:", error));
@@ -89,13 +100,18 @@ function askQuestion(endpoint) {
       .then((data) => {
         document.getElementById("progress-bar").max = data.length - 1;
         visibleQuestions.innerHTML = data[questionNumber["friends"]];
+        document.getElementById("progress-bar").value =
+          questionNumber["big_talk"];
         document
           .getElementById("question-number")
           .addEventListener("click", () => {
             questionNumber["friends"]++;
             visibleQuestions.innerHTML = data[questionNumber["friends"]];
-            const v1 = document.getElementById("progress-bar").value;
-            document.getElementById("progress-bar").value = v1 + 1;
+
+            localStorage.setItem(
+              "questionNumbers",
+              JSON.stringify(questionNumber)
+            );
           });
       })
       .catch((error) => console.error("Error:", error));

@@ -58,12 +58,14 @@ function askQuestion(endpoint) {
           .addEventListener("click", () => {
             questionNumber["big_talk"]++;
             visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
-
+            document.getElementById("progress-bar").value =
+              questionNumber["big_talk"];
             localStorage.setItem(
               "questionNumbers",
               JSON.stringify(questionNumber)
             );
           });
+        console.log(questionNumber);
       })
       .catch((error) => console.error("Error:", error));
   } else if (endpoint == "fall_in_love") {
@@ -82,11 +84,13 @@ function askQuestion(endpoint) {
           .addEventListener("click", () => {
             questionNumber["fall_in_love"]++;
             visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
-
+            document.getElementById("progress-bar").value =
+              questionNumber["fall_in_love"];
             localStorage.setItem(
               "questionNumbers",
               JSON.stringify(questionNumber)
             );
+            console.log(questionNumber);
           });
       })
       .catch((error) => console.error("Error:", error));
@@ -106,11 +110,13 @@ function askQuestion(endpoint) {
           .addEventListener("click", () => {
             questionNumber["friends"]++;
             visibleQuestions.innerHTML = data[questionNumber["friends"]];
-
+            document.getElementById("progress-bar").value =
+              questionNumber["big_talk"];
             localStorage.setItem(
               "questionNumbers",
               JSON.stringify(questionNumber)
             );
+            console.log(questionNumber);
           });
       })
       .catch((error) => console.error("Error:", error));

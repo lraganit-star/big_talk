@@ -4,34 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questions</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="app">
-        <a href="/">
-        <button id="home">Home</button>
-    </a>
+        <div id="header">
+            <a href="/">
+                <button id="home">Home</button>
+            </a>
+        </div>
         <div id="modal">
             <div class="modal-content">
                 <div>Choose a Question Group</div>
-                <div id="big-talk-container">
+                <div id="big-talk-container" class="question-container">
                     <div id="big-talk">Big Talk</div>
-                    <progress id="big-talk-progress" value="0" max="127"></progress>
+                    <progress id="big-talk-progress" class="progress" value="0" max="127"></progress>
                 </div>
-                <div id="fall-in-love-container">   
+                <div id="fall-in-love-container" class="question-container">   
                     <div id="fall-in-love">Fall in Love</div>
-                    <progress id="fall-in-love-progress" value="0" max="35"></progress>
+                    <progress id="fall-in-love-progress" class="progress" value="0" max="35"></progress>
                 </div> 
-                <div id="friends-container">
+                <div id="friends-container" class="question-container">
                     <div id="friends">Friends</div>
-                    <progress id="friends-progress" value="0" max="144"></progress>
+                    <progress id="friends-progress" class="progress" value="0" max="144"></progress>
                 </div>
             </div>
         </div>
         <div id="questions">
             <div class="question-group"></div>
             <div id="visible-question"></div>
-            <progress  id=progress-bar value="0"></progress>
+            <progress  id=progress-bar class="progress" value="0"></progress>
             <div class="choose-question">
             <button id="previous-question">Previous Question</button>
             <button id="next-question">Next Question</button>

@@ -53,8 +53,7 @@ function selectGroup(groupName) {
 
 function askQuestion(endpoint) {
   if (endpoint == "big_talk") {
-    document.getElementsByClassName("question-group")[0].innerHTML =
-      "Big Talk Questions";
+    document.getElementById("question-group").innerHTML = "Big Talk Questions";
 
     fetch("/big_talk")
       .then((response) => response.json())
@@ -87,7 +86,7 @@ function askQuestion(endpoint) {
       })
       .catch((error) => console.error("Error:", error));
   } else if (endpoint == "fall_in_love") {
-    document.getElementsByClassName("question-group")[0].innerHTML =
+    document.getElementById("question-group").innerHTML =
       "36 Questions to Fall in Love";
 
     fetch("/fall_in_love")
@@ -122,7 +121,7 @@ function askQuestion(endpoint) {
       })
       .catch((error) => console.error("Error:", error));
   } else if (endpoint == "friends") {
-    document.getElementsByClassName("question-group")[0].innerHTML =
+    document.getElementById("question-group").innerHTML =
       "Questions to ask your friends";
 
     fetch("/friends")

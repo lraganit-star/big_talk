@@ -46,6 +46,10 @@ body{
     padding: 16px;
 }
 
+#visible-question{
+    height: 175px;
+}
+
 .choose-question{
     display: flex;
     padding-top: 16px;

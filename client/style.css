@@ -15,8 +15,9 @@ body{
     width: 305px;
 }
 
-#modal-title{
+.title{
     padding: 16px;
+    font-size: 22px;
 }
 
 #header{
@@ -39,9 +40,6 @@ body{
     width: 305px;
 }
 
-#question-group{
-    padding: 16px;
-}
 
 .question-content{
     padding: 16px;

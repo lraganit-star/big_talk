@@ -58,12 +58,14 @@ function askQuestion(endpoint) {
       .then((response) => response.json())
       .then((data) => {
         progressBar.max = data.length - 1;
+        visibleQuestions.innerHTML = "";
         visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
         progressBar.value = questionNumber["big_talk"];
         document
           .getElementById("next-question")
           .addEventListener("click", () => {
             questionNumber["big_talk"]++;
+            visibleQuestions.innerHTML = "";
             visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
             progressBar.value = questionNumber["big_talk"];
             localStorage.setItem(
@@ -75,6 +77,7 @@ function askQuestion(endpoint) {
           .getElementById("previous-question")
           .addEventListener("click", () => {
             questionNumber["big_talk"]--;
+            visibleQuestions.innerHTML = "";
             visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
             progressBar.value = questionNumber["big_talk"];
             localStorage.setItem(
@@ -92,12 +95,14 @@ function askQuestion(endpoint) {
       .then((response) => response.json())
       .then((data) => {
         progressBar.max = data.length - 1;
+        visibleQuestions.innerHTML = "";
         visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
         progressBar.value = questionNumber["fall_in_love"];
         document
           .getElementById("next-question")
           .addEventListener("click", () => {
             questionNumber["fall_in_love"]++;
+            visibleQuestions.innerHTML = "";
             visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
             progressBar.value = questionNumber["fall_in_love"];
             localStorage.setItem(
@@ -110,6 +115,7 @@ function askQuestion(endpoint) {
           .getElementById("previous-question")
           .addEventListener("click", () => {
             questionNumber["fall_in_love"]--;
+            visibleQuestions.innerHTML = "";
             visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
             progressBar.value = questionNumber["fall_in_love"];
             localStorage.setItem(
@@ -127,12 +133,14 @@ function askQuestion(endpoint) {
       .then((response) => response.json())
       .then((data) => {
         progressBar.max = data.length - 1;
+        visibleQuestions.innerHTML = "";
         visibleQuestions.innerHTML = data[questionNumber["friends"]];
         progressBar.value = questionNumber["friends"];
         document
           .getElementById("next-question")
           .addEventListener("click", () => {
             questionNumber["friends"]++;
+            visibleQuestions.innerHTML = "";
             visibleQuestions.innerHTML = data[questionNumber["friends"]];
             progressBar.value = questionNumber["friends"];
             localStorage.setItem(
@@ -145,6 +153,7 @@ function askQuestion(endpoint) {
           .getElementById("previous-question")
           .addEventListener("click", () => {
             questionNumber["friends"]--;
+            visibleQuestions.innerHTML = "";
             visibleQuestions.innerHTML = data[questionNumber["friends"]];
             progressBar.value = questionNumber["friends"];
             localStorage.setItem(

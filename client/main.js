@@ -1,7 +1,3 @@
-// need to make this less copy pasta
-// button for whether user has answered question (and saved with local storage)
-// question list
-
 const appContainer = document.getElementById("app");
 const modalContainer = document.getElementById("modal");
 const questionContainer = document.getElementById("questions");
@@ -50,6 +46,27 @@ function selectGroup(groupName) {
   askQuestion(groupName);
 }
 
+function appFunctionality(data, groupName) {
+  progressBar.max = data.length - 1;
+  visibleQuestions.innerHTML = "";
+  visibleQuestions.innerHTML = data[questionNumber[groupName]];
+  progressBar.value = questionNumber[groupName];
+  document.getElementById("next-question").addEventListener("click", () => {
+    questionNumber[groupName]++;
+    visibleQuestions.innerHTML = "";
+    visibleQuestions.innerHTML = data[questionNumber[groupName]];
+    progressBar.value = questionNumber[groupName];
+    localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
+  });
+  document.getElementById("previous-question").addEventListener("click", () => {
+    questionNumber["big_talk"]--;
+    visibleQuestions.innerHTML = "";
+    visibleQuestions.innerHTML = data[questionNumber[groupName]];
+    progressBar.value = questionNumber[groupName];
+    localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
+  });
+}
+
 function askQuestion(endpoint) {
   if (endpoint == "big_talk") {
     document.getElementById("question-group").innerHTML = "Big Talk Questions";
@@ -57,110 +74,25 @@ function askQuestion(endpoint) {
     fetch("/big_talk")
       .then((response) => response.json())
       .then((data) => {
-        progressBar.max = data.length - 1;
-        visibleQuestions.innerHTML = "";
-        visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
-        progressBar.value = questionNumber["big_talk"];
-        document
-          .getElementById("next-question")
-          .addEventListener("click", () => {
-            questionNumber["big_talk"]++;
-            visibleQuestions.innerHTML = "";
-            visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
-            progressBar.value = questionNumber["big_talk"];
-            localStorage.setItem(
-              "questionNumbers",
-              JSON.stringify(questionNumber)
-            );
-          });
-        document
-          .getElementById("previous-question")
-          .addEventListener("click", () => {
-            questionNumber["big_talk"]--;
-            visibleQuestions.innerHTML = "";
-            visibleQuestions.innerHTML = data[questionNumber["big_talk"]];
-            progressBar.value = questionNumber["big_talk"];
-            localStorage.setItem(
-              "questionNumbers",
-              JSON.stringify(questionNumber)
-            );
-          });
+        appFunctionality(data, "big_talk");
       })
       .catch((error) => console.error("Error:", error));
   } else if (endpoint == "fall_in_love") {
     document.getElementById("question-group").innerHTML =
       "36 Questions to Fall in Love";
-
     fetch("/fall_in_love")
       .then((response) => response.json())
       .then((data) => {
-        progressBar.max = data.length - 1;
-        visibleQuestions.innerHTML = "";
-        visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
-        progressBar.value = questionNumber["fall_in_love"];
-        document
-          .getElementById("next-question")
-          .addEventListener("click", () => {
-            questionNumber["fall_in_love"]++;
-            visibleQuestions.innerHTML = "";
-            visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
-            progressBar.value = questionNumber["fall_in_love"];
-            localStorage.setItem(
-              "questionNumbers",
-              JSON.stringify(questionNumber)
-            );
-            console.log(questionNumber);
-          });
-        document
-          .getElementById("previous-question")
-          .addEventListener("click", () => {
-            questionNumber["fall_in_love"]--;
-            visibleQuestions.innerHTML = "";
-            visibleQuestions.innerHTML = data[questionNumber["fall_in_love"]];
-            progressBar.value = questionNumber["fall_in_love"];
-            localStorage.setItem(
-              "questionNumbers",
-              JSON.stringify(questionNumber)
-            );
-          });
+        appFunctionality(data, "fall_in_love");
       })
       .catch((error) => console.error("Error:", error));
   } else if (endpoint == "friends") {
     document.getElementById("question-group").innerHTML =
       "Questions to ask your friends";
-
     fetch("/friends")
       .then((response) => response.json())
       .then((data) => {
-        progressBar.max = data.length - 1;
-        visibleQuestions.innerHTML = "";
-        visibleQuestions.innerHTML = data[questionNumber["friends"]];
-        progressBar.value = questionNumber["friends"];
-        document
-          .getElementById("next-question")
-          .addEventListener("click", () => {
-            questionNumber["friends"]++;
-            visibleQuestions.innerHTML = "";
-            visibleQuestions.innerHTML = data[questionNumber["friends"]];
-            progressBar.value = questionNumber["friends"];
-            localStorage.setItem(
-              "questionNumbers",
-              JSON.stringify(questionNumber)
-            );
-            console.log(questionNumber);
-          });
-        document
-          .getElementById("previous-question")
-          .addEventListener("click", () => {
-            questionNumber["friends"]--;
-            visibleQuestions.innerHTML = "";
-            visibleQuestions.innerHTML = data[questionNumber["friends"]];
-            progressBar.value = questionNumber["friends"];
-            localStorage.setItem(
-              "questionNumbers",
-              JSON.stringify(questionNumber)
-            );
-          });
+        appFunctionality(data, "friends");
       })
       .catch((error) => console.error("Error:", error));
   }

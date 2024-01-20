@@ -10,18 +10,16 @@ function loadModal() {
   questionContainer.style.display = "none";
 
   const questionNumbers = JSON.parse(localStorage.getItem("questionNumbers"));
+
   if (questionNumbers) {
     questionNumber = questionNumbers;
-    console.log("local storage", questionNumber);
   }
-
-  console.log("fall in love value", questionNumber["friends"]);
 
   document.getElementById("big-talk-progress").value =
     questionNumber["big_talk"];
-  document.getElementById("friends-progress").value = questionNumber["friends"];
   document.getElementById("fall-in-love-progress").value =
     questionNumber["fall_in_love"];
+  document.getElementById("friends-progress").value = questionNumber["friends"];
 
   document
     .getElementById("big-talk-container")
@@ -35,7 +33,6 @@ function loadModal() {
 }
 
 function selectGroup(groupName) {
-  console.log("Group selected:", groupName);
   endpoint = groupName;
 
   if (modalContainer) {

@@ -4,19 +4,25 @@ const questionContainer: HTMLElement | null = document.getElementById("questions
 const visibleQuestions: HTMLElement | null = document.getElementById("visible-question");
 const progressBar: HTMLElement | null = document.getElementById("progress-bar");
 
-let questionNumber: {big_talk: number, fall_in_love: number, friends: number}= { big_talk: 0, fall_in_love: 0, friends: 0 };
+let questionNumber: {big_talk: number, fall_in_love: number, friends: number} = { big_talk: 0, fall_in_love: 0, friends: 0 };
 
 function loadModal() {
-  questionContainer.style.display = "none";
+    if (questionContainer == null) {
+        return;
+    }
+    questionContainer.style.display = "none";
 
-  const questionNumbers: string = JSON.parse(localStorage.getItem("questionNumbers"));
+    const questionNumbers: {big_talk: number, fall_in_love: number, friends: number} = JSON.parse(localStorage.getItem("questionNumbers"))
 
   if (questionNumbers) {
     questionNumber = questionNumbers;
   }
 
-  document.getElementById("big-talk-progress").value =
+  if (document.getElementById("big-talk-progress") !== null){
+    document.getElementById("big-talk-progress").value =
     questionNumber["big_talk"];
+  }
+  
   document.getElementById("fall-in-love-progress").value =
     questionNumber["fall_in_love"];
   document.getElementById("friends-progress").value = questionNumber["friends"];

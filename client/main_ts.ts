@@ -1,15 +1,15 @@
-const appContainer = document.getElementById("app");
-const modalContainer = document.getElementById("modal");
-const questionContainer = document.getElementById("questions");
-const visibleQuestions = document.getElementById("visible-question");
-const progressBar = document.getElementById("progress-bar");
+const appContainer: HTMLElement | null = document.getElementById("app");
+const modalContainer: HTMLElement | null = document.getElementById("modal");
+const questionContainer: HTMLElement | null = document.getElementById("questions");
+const visibleQuestions: HTMLElement | null = document.getElementById("visible-question");
+const progressBar: HTMLElement | null = document.getElementById("progress-bar");
 
-let questionNumber = { big_talk: 0, fall_in_love: 0, friends: 0 };
+let questionNumber: {big_talk: number, fall_in_love: number, friends: number}= { big_talk: 0, fall_in_love: 0, friends: 0 };
 
 function loadModal() {
   questionContainer.style.display = "none";
 
-  const questionNumbers = JSON.parse(localStorage.getItem("questionNumbers"));
+  const questionNumbers: string = JSON.parse(localStorage.getItem("questionNumbers"));
 
   if (questionNumbers) {
     questionNumber = questionNumbers;

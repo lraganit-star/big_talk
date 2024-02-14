@@ -17,6 +17,7 @@ const fallInLoveContainer: HTMLElement | null = document.getElementById("fall-in
 const friendsProgress: HTMLElement | null = document.getElementById("friends-progress")
 const friendsContainer: HTMLElement | null = document.getElementById("friends-container")
 const nextQuestionElement: HTMLElement | null = document.getElementById("next-question")
+const previousQuestionElement: HTMLElement | null = document.getElementById("previous-question")
 
 const storedQuestionNumbersString: string | null = localStorage.getItem("questionNumbers")
 
@@ -95,7 +96,7 @@ function nextQuestion(data, groupName) {
             if (progressBar instanceof HTMLInputElement){
                 progressBar.value = questionNumber[groupName];
             }
-            
+
             localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
           });
     }
@@ -103,16 +104,24 @@ function nextQuestion(data, groupName) {
 }
 
 function previousQuestion(data, groupName) {
-  document.getElementById("previous-question").addEventListener("click", () => {
-    if (visibleQuestions == null || progressBar == null){
-        return;
-      }
-    questionNumber[groupName]--;
-    visibleQuestions.innerHTML = "";
-    visibleQuestions.innerHTML = data[questionNumber[groupName]];
-    progressBar.value = questionNumber[groupName];
-    localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
-  });
+    if (previousQuestionElement !== null){
+        previousQuestionElement.addEventListener("click", () => {
+            if (visibleQuestions == null || progressBar == null){
+                return;
+              }
+              
+            questionNumber[groupName]--;
+            visibleQuestions.innerHTML = "";
+            visibleQuestions.innerHTML = data[questionNumber[groupName]];
+
+            if (progressBar instanceof HTMLInputElement){
+                progressBar.value = questionNumber[groupName];
+            }
+            
+            localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
+          });
+    }
+  
 }
 
 function askQuestion(endpoint) {

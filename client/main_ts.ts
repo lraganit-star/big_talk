@@ -67,10 +67,15 @@ function mainAppFunctionality(data, groupName) {
     if (visibleQuestions == null || progressBar == null){
         return;
       }
-  progressBar.max = data.length - 1;
+  
   visibleQuestions.innerHTML = "";
   visibleQuestions.innerHTML = data[questionNumber[groupName]];
-  progressBar.value = questionNumber[groupName];
+
+  if (progressBar instanceof HTMLInputElement){
+    progressBar.max = (data.length - 1).toString();
+    progressBar.value = questionNumber[groupName].toString();
+}
+
   nextQuestion(data, groupName);
   previousQuestion(data, groupName);
 }

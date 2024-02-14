@@ -18,6 +18,7 @@ const friendsProgress: HTMLElement | null = document.getElementById("friends-pro
 const friendsContainer: HTMLElement | null = document.getElementById("friends-container")
 const nextQuestionElement: HTMLElement | null = document.getElementById("next-question")
 const previousQuestionElement: HTMLElement | null = document.getElementById("previous-question")
+const questionGroup: HTMLElement | null = document.getElementById("question-group")
 
 const storedQuestionNumbersString: string | null = localStorage.getItem("questionNumbers")
 
@@ -100,7 +101,6 @@ function nextQuestion(data, groupName) {
             localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
           });
     }
-  
 }
 
 function previousQuestion(data, groupName) {
@@ -109,7 +109,7 @@ function previousQuestion(data, groupName) {
             if (visibleQuestions == null || progressBar == null){
                 return;
               }
-              
+
             questionNumber[groupName]--;
             visibleQuestions.innerHTML = "";
             visibleQuestions.innerHTML = data[questionNumber[groupName]];
@@ -121,12 +121,11 @@ function previousQuestion(data, groupName) {
             localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
           });
     }
-  
 }
 
 function askQuestion(endpoint) {
   if (endpoint == "big_talk") {
-    document.getElementById("question-group").innerHTML = "Big Talk Questions";
+    questionGroup.innerHTML = "Big Talk Questions";
 
     fetch("/big_talk")
       .then((response) => response.json())
@@ -134,8 +133,8 @@ function askQuestion(endpoint) {
         mainAppFunctionality(data, "big_talk");
       })
       .catch((error) => console.error("Error:", error));
-  } else if (endpoint == "fall_in_love") {
-    document.getElementById("question-group").innerHTML =
+  } else if (endpoint == "fall_in_love" && questionGroup !== null) {
+    questionGroup.innerHTML =
       "36 Questions to Fall in Love";
     fetch("/fall_in_love")
       .then((response) => response.json())
@@ -143,8 +142,8 @@ function askQuestion(endpoint) {
         mainAppFunctionality(data, "fall_in_love");
       })
       .catch((error) => console.error("Error:", error));
-  } else if (endpoint == "friends") {
-    document.getElementById("question-group").innerHTML =
+  } else if (endpoint == "friends" && questionGroup !== null) {
+    questionGroup.innerHTML =
       "Questions to ask your friends";
     fetch("/friends")
       .then((response) => response.json())

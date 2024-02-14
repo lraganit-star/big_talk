@@ -55,9 +55,8 @@ function loadModal() {
 }
 
 function selectGroup(groupName) {
-  endpoint = groupName;
-
-  if (modalContainer) {
+//   const endpoint = groupName;
+  if (modalContainer !== null && questionContainer !== null) {
     questionContainer.style.display = "block";
     modalContainer.style.display = "none";
   }

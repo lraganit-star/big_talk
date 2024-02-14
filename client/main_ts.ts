@@ -1,41 +1,57 @@
+interface QuestionObject {
+    big_talk: number; 
+    fall_in_love: number; 
+    friends: number;
+}
+
 const appContainer: HTMLElement | null = document.getElementById("app");
 const modalContainer: HTMLElement | null = document.getElementById("modal");
 const questionContainer: HTMLElement | null = document.getElementById("questions");
 const visibleQuestions: HTMLElement | null = document.getElementById("visible-question");
 const progressBar: HTMLElement | null = document.getElementById("progress-bar");
 
-let questionNumber: {big_talk: number, fall_in_love: number, friends: number} = { big_talk: 0, fall_in_love: 0, friends: 0 };
+const bigTalkProgress: HTMLElement | null = document.getElementById("big-talk-progress")
+const bigTalkContainer: HTMLElement | null = document.getElementById("big-talk-container")
+const fallInLoveProgress: HTMLElement | null = document.getElementById("fall-in-love-progress")
+const fallInLoveContainer: HTMLElement | null = document.getElementById("fall-in-love-container")
+const friendsProgress: HTMLElement | null = document.getElementById("friends-progress")
+const friendsContainer: HTMLElement | null = document.getElementById("friends-container")
+
+const storedQuestionNumbersString: string | null = localStorage.getItem("questionNumbers")
+
+let questionNumber: QuestionObject = { big_talk: 0, fall_in_love: 0, friends: 0 };
 
 function loadModal() {
-    if (questionContainer == null) {
-        return;
+    
+    if (storedQuestionNumbersString !== null){
+        questionNumber = JSON.parse(storedQuestionNumbersString)
     }
-    questionContainer.style.display = "none";
 
-    const questionNumbers: {big_talk: number, fall_in_love: number, friends: number} = JSON.parse(localStorage.getItem("questionNumbers"))
+    if (questionContainer !== null) {
+        questionContainer.style.display = "none";
+    }
 
-  if (questionNumbers) {
-    questionNumber = questionNumbers;
-  }
+    // I'm not too sure about the .toString() right now
+    if (bigTalkProgress !== null && bigTalkProgress instanceof HTMLInputElement){
+        bigTalkProgress.value = questionNumber["big_talk"].toString()
+    }
+    if (bigTalkContainer !== null){
+        bigTalkContainer.addEventListener("click", () => selectGroup("big_talk"));
+    }
 
-  if (document.getElementById("big-talk-progress") !== null){
-    document.getElementById("big-talk-progress").value =
-    questionNumber["big_talk"];
-  }
-  
-  document.getElementById("fall-in-love-progress").value =
-    questionNumber["fall_in_love"];
-  document.getElementById("friends-progress").value = questionNumber["friends"];
+    if (fallInLoveProgress !== null && fallInLoveProgress instanceof HTMLInputElement){
+        fallInLoveProgress.value = questionNumber["fall_in_love"].toString()
+    }
+    if (fallInLoveContainer !== null){
+        fallInLoveContainer.addEventListener("click", () => selectGroup("fall_in_love"));
+    }
 
-  document
-    .getElementById("big-talk-container")
-    .addEventListener("click", () => selectGroup("big_talk"));
-  document
-    .getElementById("fall-in-love-container")
-    .addEventListener("click", () => selectGroup("fall_in_love"));
-  document
-    .getElementById("friends-container")
-    .addEventListener("click", () => selectGroup("friends"));
+    if (friendsProgress !== null && friendsProgress instanceof HTMLInputElement){
+        friendsProgress.value = questionNumber["friends"].toString()
+    }
+    if (friendsContainer !== null){
+        friendsContainer.addEventListener("click", () => selectGroup("friends"));
+    }
 }
 
 function selectGroup(groupName) {
@@ -49,6 +65,9 @@ function selectGroup(groupName) {
 }
 
 function mainAppFunctionality(data, groupName) {
+    if (visibleQuestions == null || progressBar == null){
+        return;
+      }
   progressBar.max = data.length - 1;
   visibleQuestions.innerHTML = "";
   visibleQuestions.innerHTML = data[questionNumber[groupName]];
@@ -59,6 +78,10 @@ function mainAppFunctionality(data, groupName) {
 
 function nextQuestion(data, groupName) {
   document.getElementById("next-question").addEventListener("click", () => {
+    if (visibleQuestions == null || progressBar == null){
+        return;
+      }
+    
     questionNumber[groupName]++;
     visibleQuestions.innerHTML = "";
     visibleQuestions.innerHTML = data[questionNumber[groupName]];
@@ -69,6 +92,9 @@ function nextQuestion(data, groupName) {
 
 function previousQuestion(data, groupName) {
   document.getElementById("previous-question").addEventListener("click", () => {
+    if (visibleQuestions == null || progressBar == null){
+        return;
+      }
     questionNumber[groupName]--;
     visibleQuestions.innerHTML = "";
     visibleQuestions.innerHTML = data[questionNumber[groupName]];

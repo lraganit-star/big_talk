@@ -124,7 +124,7 @@ function previousQuestion(data, groupName) {
 }
 
 function askQuestion(endpoint) {
-  if (endpoint == "big_talk") {
+  if (endpoint == "big_talk" && questionGroup !== null) {
     questionGroup.innerHTML = "Big Talk Questions";
 
     fetch("/big_talk")

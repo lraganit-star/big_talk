@@ -16,6 +16,7 @@ const fallInLoveProgress: HTMLElement | null = document.getElementById("fall-in-
 const fallInLoveContainer: HTMLElement | null = document.getElementById("fall-in-love-container")
 const friendsProgress: HTMLElement | null = document.getElementById("friends-progress")
 const friendsContainer: HTMLElement | null = document.getElementById("friends-container")
+const nextQuestionElement: HTMLElement | null = document.getElementById("next-question")
 
 const storedQuestionNumbersString: string | null = localStorage.getItem("questionNumbers")
 
@@ -81,17 +82,24 @@ function mainAppFunctionality(data, groupName) {
 }
 
 function nextQuestion(data, groupName) {
-  document.getElementById("next-question").addEventListener("click", () => {
-    if (visibleQuestions == null || progressBar == null){
-        return;
-      }
-    
-    questionNumber[groupName]++;
-    visibleQuestions.innerHTML = "";
-    visibleQuestions.innerHTML = data[questionNumber[groupName]];
-    progressBar.value = questionNumber[groupName];
-    localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
-  });
+    if (nextQuestionElement !== null){
+        nextQuestionElement.addEventListener("click", () => {
+            if (visibleQuestions == null || progressBar == null){
+                return;
+              }
+            
+            questionNumber[groupName]++;
+            visibleQuestions.innerHTML = "";
+            visibleQuestions.innerHTML = data[questionNumber[groupName]];
+
+            if (progressBar instanceof HTMLInputElement){
+                progressBar.value = questionNumber[groupName];
+            }
+            
+            localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
+          });
+    }
+  
 }
 
 function previousQuestion(data, groupName) {

@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "node server.js"
+    "dev": "concurrently \"vite --config ./client/vite.config.js\" \"node server.js\""
   },
   "author": "Leslie Raganit",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "vite": "^5.1.4"
   }
 }

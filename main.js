@@ -1,3 +1,5 @@
+// this was the original main script before changing it to typescript
+
 const appContainer = document.getElementById("app");
 const modalContainer = document.getElementById("modal");
 const questionContainer = document.getElementById("questions");

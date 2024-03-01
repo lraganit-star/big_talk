@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "concurrently \"vite --config ./client/vite.config.js\" \"node server.js\""
+    "dev": "concurrently \"vite --config ./client/vite.config.js\" \"node server.js\"",
+    "test": "vitest"
   },
   "author": "Leslie Raganit",
   "license": "ISC",

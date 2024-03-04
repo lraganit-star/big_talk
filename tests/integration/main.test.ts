@@ -5,8 +5,8 @@
 
 import { expect, test } from "@playwright/test";
 
-const url = "http://localhost:3000";
-const questionTypes = ["Big Talk", "Fall in Love", "Friends"];
+const url:string = "http://localhost:3000";
+const questionTypes: string[] = ["Big Talk", "Fall in Love", "Friends"];
 
 test("has correct title", async ({ page }) => {
   await page.goto(url);
@@ -26,7 +26,7 @@ for (const i of questionTypes) {
       await page.goto(url);
       const locator = page.locator("#questions");
       await page.getByText(i).click();
-      await expect(locator).toBeVisible;
+      expect(locator).toBeVisible;
     }
   );
 }

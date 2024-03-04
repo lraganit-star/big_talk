@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "concurrently \"vite --config ./client/vite.config.js\" \"node server.js\"",
-    "test": "vitest"
+    "test: integration": "playwright test tests/integration",
+    "test: unit": "vitest run --dir tests/unit"
   },
   "author": "Leslie Raganit",
   "license": "ISC",

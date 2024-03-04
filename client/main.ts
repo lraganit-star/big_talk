@@ -58,12 +58,12 @@ function loadModal() {
 }
 
 function selectGroup(groupName) {
-//   const endpoint = groupName;
   if (modalContainer !== null && questionContainer !== null) {
     questionContainer.style.display = "block";
     modalContainer.style.display = "none";
   }
   askQuestion(groupName);
+  return questionContainer?.style.display
 }
 
 function mainAppFunctionality(data, groupName) {
@@ -81,6 +81,10 @@ function mainAppFunctionality(data, groupName) {
 
   nextQuestion(data, groupName);
   previousQuestion(data, groupName);
+  
+  if (progressBar instanceof HTMLInputElement){
+    return progressBar.value
+  }
 }
 
 function nextQuestion(data, groupName) {
@@ -99,6 +103,10 @@ function nextQuestion(data, groupName) {
             }
 
             localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
+
+            if (progressBar instanceof HTMLInputElement){
+              return progressBar.value
+            }
           });
     }
 }
@@ -119,6 +127,10 @@ function previousQuestion(data, groupName) {
             }
             
             localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
+
+            if (progressBar instanceof HTMLInputElement){
+              return progressBar.value
+            }
           });
     }
 }
@@ -133,6 +145,7 @@ function askQuestion(endpoint) {
         mainAppFunctionality(data, "big_talk");
       })
       .catch((error) => console.error("Error:", error));
+
   } else if (endpoint == "fall_in_love" && questionGroup !== null) {
     questionGroup.innerHTML =
       "36 Questions to Fall in Love";
@@ -142,6 +155,7 @@ function askQuestion(endpoint) {
         mainAppFunctionality(data, "fall_in_love");
       })
       .catch((error) => console.error("Error:", error));
+
   } else if (endpoint == "friends" && questionGroup !== null) {
     questionGroup.innerHTML =
       "Questions to ask your friends";
@@ -152,6 +166,9 @@ function askQuestion(endpoint) {
       })
       .catch((error) => console.error("Error:", error));
   }
+
+    return(questionGroup?.innerHTML)
+
 }
 
 loadModal();

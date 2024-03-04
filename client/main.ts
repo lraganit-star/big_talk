@@ -24,7 +24,7 @@ const storedQuestionNumbersString: string | null = localStorage.getItem("questio
 
 let questionNumber: QuestionObject = { big_talk: 0, fall_in_love: 0, friends: 0 };
 
-function loadModal() {
+export function loadModal() {
     
     if (storedQuestionNumbersString !== null){
         questionNumber = JSON.parse(storedQuestionNumbersString)
@@ -57,7 +57,7 @@ function loadModal() {
     }
 }
 
-function selectGroup(groupName) {
+export function selectGroup(groupName) {
   if (modalContainer !== null && questionContainer !== null) {
     questionContainer.style.display = "block";
     modalContainer.style.display = "none";
@@ -66,7 +66,7 @@ function selectGroup(groupName) {
   return questionContainer?.style.display
 }
 
-function mainAppFunctionality(data, groupName) {
+export function mainAppFunctionality(data, groupName) {
     if (visibleQuestions == null || progressBar == null){
         return;
       }
@@ -87,7 +87,7 @@ function mainAppFunctionality(data, groupName) {
   }
 }
 
-function nextQuestion(data, groupName) {
+export function nextQuestion(data, groupName) {
     if (nextQuestionElement !== null){
         nextQuestionElement.addEventListener("click", () => {
             if (visibleQuestions == null || progressBar == null){
@@ -111,7 +111,7 @@ function nextQuestion(data, groupName) {
     }
 }
 
-function previousQuestion(data, groupName) {
+export function previousQuestion(data, groupName) {
     if (previousQuestionElement !== null){
         previousQuestionElement.addEventListener("click", () => {
             if (visibleQuestions == null || progressBar == null){
@@ -135,7 +135,7 @@ function previousQuestion(data, groupName) {
     }
 }
 
-function askQuestion(endpoint) {
+export function askQuestion(endpoint) {
   if (endpoint == "big_talk" && questionGroup !== null) {
     questionGroup.innerHTML = "Big Talk Questions";
 

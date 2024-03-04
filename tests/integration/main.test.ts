@@ -1,4 +1,4 @@
-// make sure to run project before doing this test
+// npx playwright test
 
 // playwright for integration tests
 // vitest for unit tests

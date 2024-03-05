@@ -4,7 +4,7 @@ interface QuestionObject {
     friends: number;
 }
 
-const appContainer: HTMLElement | null = document.getElementById("app");
+// const appContainer: HTMLElement | null = document.getElementById("app");q
 const modalContainer: HTMLElement | null = document.getElementById("modal");
 const questionContainer: HTMLElement | null = document.getElementById("questions");
 const visibleQuestions: HTMLElement | null = document.getElementById("visible-question");
@@ -135,7 +135,7 @@ export function previousQuestion(data, groupName) {
     }
 }
 
-export function askQuestion(endpoint) {
+export function askQuestion(endpoint, questionGroup) {
   if (endpoint == "big_talk" && questionGroup !== null) {
     questionGroup.innerHTML = "Big Talk Questions";
 
@@ -167,7 +167,12 @@ export function askQuestion(endpoint) {
       .catch((error) => console.error("Error:", error));
   }
 
-    return(questionGroup?.innerHTML)
+  if(questionGroup !== null){
+    return(questionGroup.innerHTML)
+  }
+  else {
+    return questionGroup
+  }
 
 }
 

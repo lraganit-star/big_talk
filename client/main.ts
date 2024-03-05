@@ -57,16 +57,21 @@ export function loadModal() {
     }
 }
 
-export function selectGroup(groupName) {
+export function selectGroup(groupName: string) {
   if (modalContainer !== null && questionContainer !== null) {
     questionContainer.style.display = "block";
     modalContainer.style.display = "none";
   }
-  askQuestion(groupName);
+
+  if (questionGroup == null){
+    return
+  }
+
+  askQuestion(groupName, questionGroup);
   return questionContainer?.style.display
 }
 
-export function mainAppFunctionality(data, groupName) {
+export function mainAppFunctionality(data, groupName: string) {
     if (visibleQuestions == null || progressBar == null){
         return;
       }
@@ -87,7 +92,7 @@ export function mainAppFunctionality(data, groupName) {
   }
 }
 
-export function nextQuestion(data, groupName) {
+export function nextQuestion(data, groupName: string) {
     if (nextQuestionElement !== null){
         nextQuestionElement.addEventListener("click", () => {
             if (visibleQuestions == null || progressBar == null){
@@ -111,7 +116,7 @@ export function nextQuestion(data, groupName) {
     }
 }
 
-export function previousQuestion(data, groupName) {
+export function previousQuestion(data, groupName: string) {
     if (previousQuestionElement !== null){
         previousQuestionElement.addEventListener("click", () => {
             if (visibleQuestions == null || progressBar == null){
@@ -135,7 +140,7 @@ export function previousQuestion(data, groupName) {
     }
 }
 
-export function askQuestion(endpoint, questionGroup) {
+export function askQuestion(endpoint: string, questionGroup: HTMLElement) {
   if (endpoint == "big_talk" && questionGroup !== null) {
     questionGroup.innerHTML = "Big Talk Questions";
 

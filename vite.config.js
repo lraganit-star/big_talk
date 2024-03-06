@@ -1,10 +1,12 @@
 import { defineConfig } from "vite";
 import path from "path";
 
+console.log(path.resolve(__dirname));
+
 export default defineConfig({
-  root: path.resolve(__dirname),
+  root: `client`,
   build: {
-    outDir: path.resolve(__dirname, "../dist"),
+    outDir: `dist`,
   },
   server: {
     proxy: {

@@ -1,10 +1,10 @@
 interface QuestionObject {
-    big_talk: number; 
-    fall_in_love: number; 
-    friends: number;
+  big_talk: number; 
+  fall_in_love: number; 
+  friends: number;
 }
 
-// const appContainer: HTMLElement | null = document.getElementById("app");q
+const appContainer: HTMLElement | null = document.getElementById("app");
 const modalContainer: HTMLElement | null = document.getElementById("modal");
 const questionContainer: HTMLElement | null = document.getElementById("questions");
 const visibleQuestions: HTMLElement | null = document.getElementById("visible-question");
@@ -24,161 +24,135 @@ const storedQuestionNumbersString: string | null = localStorage.getItem("questio
 
 let questionNumber: QuestionObject = { big_talk: 0, fall_in_love: 0, friends: 0 };
 
-export function loadModal() {
-    
-    if (storedQuestionNumbersString !== null){
-        questionNumber = JSON.parse(storedQuestionNumbersString)
-    }
-
-    if (questionContainer !== null) {
-        questionContainer.style.display = "none";
-    }
-
-    // I'm not too sure about the .toString() right now
-    if (bigTalkProgress !== null && bigTalkProgress instanceof HTMLInputElement){
-        bigTalkProgress.value = questionNumber["big_talk"].toString()
-    }
-    if (bigTalkContainer !== null){
-        bigTalkContainer.addEventListener("click", () => selectGroup("big_talk"));
-    }
-
-    if (fallInLoveProgress !== null && fallInLoveProgress instanceof HTMLInputElement){
-        fallInLoveProgress.value = questionNumber["fall_in_love"].toString()
-    }
-    if (fallInLoveContainer !== null){
-        fallInLoveContainer.addEventListener("click", () => selectGroup("fall_in_love"));
-    }
-
-    if (friendsProgress !== null && friendsProgress instanceof HTMLInputElement){
-        friendsProgress.value = questionNumber["friends"].toString()
-    }
-    if (friendsContainer !== null){
-        friendsContainer.addEventListener("click", () => selectGroup("friends"));
-    }
-}
-
-export function selectGroup(groupName: string) {
-  if (modalContainer !== null && questionContainer !== null) {
-    questionContainer.style.display = "block";
-    modalContainer.style.display = "none";
-  }
-
-  if (questionGroup == null){
-    return
-  }
-
-  askQuestion(groupName, questionGroup);
-  return questionContainer?.style.display
-}
-
-export function mainAppFunctionality(data, groupName: string) {
-    if (visibleQuestions == null || progressBar == null){
-        return;
-      }
+function loadModal() {
   
-  visibleQuestions.innerHTML = "";
-  visibleQuestions.innerHTML = data[questionNumber[groupName]];
+  if (storedQuestionNumbersString !== null){
+      questionNumber = JSON.parse(storedQuestionNumbersString)
+  }
 
-  if (progressBar instanceof HTMLInputElement){
-    progressBar.max = (data.length - 1).toString();
-    progressBar.value = questionNumber[groupName].toString();
-}
+  if (questionContainer !== null) {
+      questionContainer.style.display = "none";
+  }
 
-  nextQuestion(data, groupName);
-  previousQuestion(data, groupName);
-  
-  if (progressBar instanceof HTMLInputElement){
-    return progressBar.value
+  // I'm not too sure about the .toString() right now
+  if (bigTalkProgress !== null && bigTalkProgress instanceof HTMLInputElement){
+      bigTalkProgress.value = questionNumber["big_talk"].toString()
+  }
+  if (bigTalkContainer !== null){
+      bigTalkContainer.addEventListener("click", () => selectGroup("big_talk"));
+  }
+
+  if (fallInLoveProgress !== null && fallInLoveProgress instanceof HTMLInputElement){
+      fallInLoveProgress.value = questionNumber["fall_in_love"].toString()
+  }
+  if (fallInLoveContainer !== null){
+      fallInLoveContainer.addEventListener("click", () => selectGroup("fall_in_love"));
+  }
+
+  if (friendsProgress !== null && friendsProgress instanceof HTMLInputElement){
+      friendsProgress.value = questionNumber["friends"].toString()
+  }
+  if (friendsContainer !== null){
+      friendsContainer.addEventListener("click", () => selectGroup("friends"));
   }
 }
 
-export function nextQuestion(data, groupName: string) {
-    if (nextQuestionElement !== null){
-        nextQuestionElement.addEventListener("click", () => {
-            if (visibleQuestions == null || progressBar == null){
-                return;
-              }
-            
-            questionNumber[groupName]++;
-            visibleQuestions.innerHTML = "";
-            visibleQuestions.innerHTML = data[questionNumber[groupName]];
+function selectGroup(groupName: string) {
+//   const endpoint = groupName;
+if (modalContainer !== null && questionContainer !== null) {
+  questionContainer.style.display = "block";
+  modalContainer.style.display = "none";
+}
+askQuestion(groupName);
+}
 
-            if (progressBar instanceof HTMLInputElement){
-                progressBar.value = questionNumber[groupName];
-            }
-
-            localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
-
-            if (progressBar instanceof HTMLInputElement){
-              return progressBar.value
-            }
-          });
+function mainAppFunctionality(data, groupName: string) {
+  if (visibleQuestions == null || progressBar == null){
+      return;
     }
+
+visibleQuestions.innerHTML = "";
+visibleQuestions.innerHTML = data[questionNumber[groupName]];
+
+if (progressBar instanceof HTMLInputElement){
+  progressBar.max = (data.length - 1).toString();
+  progressBar.value = questionNumber[groupName].toString();
 }
 
-export function previousQuestion(data, groupName: string) {
-    if (previousQuestionElement !== null){
-        previousQuestionElement.addEventListener("click", () => {
-            if (visibleQuestions == null || progressBar == null){
-                return;
-              }
-
-            questionNumber[groupName]--;
-            visibleQuestions.innerHTML = "";
-            visibleQuestions.innerHTML = data[questionNumber[groupName]];
-
-            if (progressBar instanceof HTMLInputElement){
-                progressBar.value = questionNumber[groupName];
-            }
-            
-            localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
-
-            if (progressBar instanceof HTMLInputElement){
-              return progressBar.value
-            }
-          });
-    }
+nextQuestion(data, groupName);
+previousQuestion(data, groupName);
 }
 
-export function askQuestion(endpoint: string, questionGroup: HTMLElement) {
-  if (endpoint == "big_talk" && questionGroup !== null) {
-    questionGroup.innerHTML = "Big Talk Questions";
+function nextQuestion(data, groupName: string) {
+  if (nextQuestionElement !== null){
+      nextQuestionElement.addEventListener("click", () => {
+          if (visibleQuestions == null || progressBar == null){
+              return;
+            }
+          
+          questionNumber[groupName]++;
+          visibleQuestions.innerHTML = "";
+          visibleQuestions.innerHTML = data[questionNumber[groupName]];
 
-    fetch("/big_talk")
-      .then((response) => response.json())
-      .then((data) => {
-        mainAppFunctionality(data, "big_talk");
-      })
-      .catch((error) => console.error("Error:", error));
+          if (progressBar instanceof HTMLInputElement){
+              progressBar.value = questionNumber[groupName];
+          }
 
-  } else if (endpoint == "fall_in_love" && questionGroup !== null) {
-    questionGroup.innerHTML =
-      "36 Questions to Fall in Love";
-    fetch("/fall_in_love")
-      .then((response) => response.json())
-      .then((data) => {
-        mainAppFunctionality(data, "fall_in_love");
-      })
-      .catch((error) => console.error("Error:", error));
-
-  } else if (endpoint == "friends" && questionGroup !== null) {
-    questionGroup.innerHTML =
-      "Questions to ask your friends";
-    fetch("/friends")
-      .then((response) => response.json())
-      .then((data) => {
-        mainAppFunctionality(data, "friends");
-      })
-      .catch((error) => console.error("Error:", error));
+          localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
+        });
   }
+}
 
-  if(questionGroup !== null){
-    return(questionGroup.innerHTML)
-  }
-  else {
-    return questionGroup
-  }
+function previousQuestion(data, groupName: string) {
+  if (previousQuestionElement !== null){
+      previousQuestionElement.addEventListener("click", () => {
+          if (visibleQuestions == null || progressBar == null){
+              return;
+            }
 
+          questionNumber[groupName]--;
+          visibleQuestions.innerHTML = "";
+          visibleQuestions.innerHTML = data[questionNumber[groupName]];
+
+          if (progressBar instanceof HTMLInputElement){
+              progressBar.value = questionNumber[groupName];
+          }
+          
+          localStorage.setItem("questionNumbers", JSON.stringify(questionNumber));
+        });
+  }
+}
+
+export function askQuestion(endpoint: string) {
+if (endpoint == "big_talk" && questionGroup !== null) {
+  questionGroup.innerHTML = "Big Talk Questions";
+
+  fetch("/big_talk")
+    .then((response) => response.json())
+    .then((data) => {
+      mainAppFunctionality(data, "big_talk");
+    })
+    .catch((error) => console.error("Error:", error));
+} else if (endpoint == "fall_in_love" && questionGroup !== null) {
+  questionGroup.innerHTML =
+    "36 Questions to Fall in Love";
+  fetch("/fall_in_love")
+    .then((response) => response.json())
+    .then((data) => {
+      mainAppFunctionality(data, "fall_in_love");
+    })
+    .catch((error) => console.error("Error:", error));
+} else if (endpoint == "friends" && questionGroup !== null) {
+  questionGroup.innerHTML =
+    "Questions to ask your friends";
+  fetch("/friends")
+    .then((response) => response.json())
+    .then((data) => {
+      mainAppFunctionality(data, "friends");
+    })
+    .catch((error) => console.error("Error:", error));
+}
+return questionGroup?.innerHTML
 }
 
 loadModal();
